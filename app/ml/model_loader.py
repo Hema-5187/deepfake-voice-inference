@@ -1,17 +1,12 @@
 from transformers import Wav2Vec2Processor, Wav2Vec2Model
-from app.core.config import MODEL_NAME
+from app.core.config import MODEL_NAME, MODEL_CACHE
 import torch
 
 
 class ModelLoader:
 
     def __init__(self):
-        self.device = (
-            "cuda"
-            if torch.cuda.is_available()
-            else "cpu"
-        )
-
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.processor = None
         self.model = None
         self.loaded = False
@@ -24,11 +19,13 @@ class ModelLoader:
         print(f"Loading {MODEL_NAME}...")
 
         self.processor = Wav2Vec2Processor.from_pretrained(
-            MODEL_NAME
+            MODEL_NAME,
+            cache_dir=MODEL_CACHE
         )
 
         self.model = Wav2Vec2Model.from_pretrained(
-            MODEL_NAME
+            MODEL_NAME,
+            cache_dir=MODEL_CACHE
         )
 
         self.model.to(self.device)
@@ -36,7 +33,7 @@ class ModelLoader:
 
         self.loaded = True
 
-        print("Model Loaded Successfully")
+        print("✅ Model Loaded Successfully")
 
 
 model_loader = ModelLoader()
