@@ -1,5 +1,5 @@
 ---
-title: Deepfake
+title: Deepfake-Audio-Inference
 emoji: 🌍
 colorFrom: yellow
 colorTo: indigo
